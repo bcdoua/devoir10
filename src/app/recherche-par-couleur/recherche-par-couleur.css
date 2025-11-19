@@ -1,64 +1,148 @@
-/* Conteneur principal */
+/* Container */
 .container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 15px;
-  border: 3px solid #aa5b82;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #5a4a6d; /* Violet doux pour harmoniser */
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(212, 165, 196, 0.1);
 }
 
-/* Titre */
+/* Formulaire */
+form.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.form-group label { 
+    font-weight: 600;
+    color: #8a6a8b; /* Violet moyen pour les labels */
+    margin-bottom: 8px;
+}
+
+.form-control {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 2px solid #e8d3e2; /* Rose pâle */
+    transition: all 0.3s ease;
+    background-color: #fefcff; /* Blanc légèrement rosé */
+    color: #5a4a6d;
+}
+
+.form-control:focus {
+    border-color: #d4a5c4; /* Rose poudré */
+    box-shadow: 0 0 0 0.2rem rgba(212, 165, 196, 0.25);
+    outline: none;
+}
+
+/* Carte */
+.card {
+    border-radius: 14px;
+    box-shadow: 0 10px 20px rgba(212, 165, 196, 0.1);
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid #e8d3e2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(212, 165, 196, 0.15);
+}
+
+.card-body {
+    padding: 30px;
+}
+
+/* Tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(212, 165, 196, 0.08);
+}
+
+th {
+    background-color: #e8d3e2; /* Rose très pâle */
+    color: #8a6a8b;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #d4a5c4;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f5e9f2;
+    color: #5a4a6d;
+}
+
+th:hover {
+    background-color: #d4a5c4; /* Rose poudré au survol */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+tr:nth-child(even) {
+    background-color: #fcf6fb; /* Rose ultra clair pour les lignes paires */
+}
+
+tr:hover {
+    background-color: #f8f0f6; /* Rose légèrement plus foncé au survol */
+    transition: background-color 0.3s ease;
+}
+
+/* Message vide */
+h1 {
+    text-align: center;
+    color: #d4a5c4; /* Rose poudré pour le message */
+    margin-top: 40px;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+/* Bouton de recherche */
+.btn-primary {
+    background-color: #d4a5c4; /* Rose poudré */
+    border-color: #d4a5c4;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #c895b4;
+    border-color: #c895b4;
+    transform: translateY(-2px);
+}
+
+/* Titre de la page */
 h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+    color: #d4a5c4; /* Rose poudré */
+    border-bottom: 2px solid #e8d3e2;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* Sélecteur de couleur */
-select {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Liste d'accessoires */
-.accessoire-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.accessoire-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
-  margin-bottom: 8px;
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  transition: background-color 0.2s;
-}
-
-.accessoire-item:hover {
-  background-color: #f0f0f0;
-}
-
-/* Bouton supprimer */
-button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #e74c3c;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-button:hover {
-  background-color: #c0392b;
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        margin: 15px;
+        padding: 15px;
+    }
+    
+    form.form-inline {
+        flex-direction: column;
+    }
+    
+    .form-control {
+        width: 100%;
+    }
 }

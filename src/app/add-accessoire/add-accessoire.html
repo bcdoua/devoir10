@@ -9,14 +9,15 @@
         type="text"
         name="idaccessoire"
         [(ngModel)]="newaccessoire.idaccessoire"
+        #idaccessoire="ngModel"
         class="form-control"
         required
         pattern="^[0-9]+$"
       />
-      <div *ngIf="f.submitted && f.controls['idaccessoire']?.hasError('required')" class="text-danger">
+      <div *ngIf="(f.submitted || idaccessoire.touched) && idaccessoire.errors?.['required']" class="text-danger">
         L'ID est obligatoire !
       </div>
-      <div *ngIf="f.submitted && f.controls['idaccessoire']?.hasError('pattern')" class="text-danger">
+      <div *ngIf="(f.submitted || idaccessoire.touched) && idaccessoire.errors?.['pattern']" class="text-danger">
         L’ID doit être un nombre !
       </div>
     </div>
@@ -27,14 +28,15 @@
         type="text"
         name="nomaccessoire"
         [(ngModel)]="newaccessoire.nomaccessoire"
+        #nomaccessoire="ngModel"
         class="form-control"
         required
         minlength="3"
       />
-      <div *ngIf="f.submitted && f.controls['nomaccessoire']?.hasError('required')" class="text-danger">
+      <div *ngIf="(f.submitted || nomaccessoire.touched) && nomaccessoire.errors?.['required']" class="text-danger">
         Le nom est obligatoire !
       </div>
-      <div *ngIf="f.submitted && f.controls['nomaccessoire']?.hasError('minlength')" class="text-danger">
+      <div *ngIf="(f.submitted || nomaccessoire.touched) && nomaccessoire.errors?.['minlength']" class="text-danger">
         Le nom doit contenir au moins 3 caractères !
       </div>
     </div>
@@ -42,17 +44,18 @@
     <div class="col-sm-2 col-md-2 col-lg-2">
       <label>Prix accessoire</label>
       <input
-        type="text"
+        type="number"
         name="prixaccessoire"
         [(ngModel)]="newaccessoire.prixaccessoire"
+        #prixaccessoire="ngModel"
         class="form-control"
         required
         min="0"
       />
-      <div *ngIf="f.submitted && f.controls['prixaccessoire']?.hasError('required')" class="text-danger">
+      <div *ngIf="(f.submitted || prixaccessoire.touched) && prixaccessoire.errors?.['required']" class="text-danger">
         Le prix est obligatoire !
       </div>
-      <div *ngIf="f.submitted && f.controls['prixaccessoire']?.hasError('min')" class="text-danger">
+      <div *ngIf="(f.submitted || prixaccessoire.touched) && prixaccessoire.errors?.['min']" class="text-danger">
         Le prix doit être positif !
       </div>
     </div>
@@ -63,10 +66,11 @@
         type="date"
         name="dateCreation"
         [(ngModel)]="newaccessoire.dateCreation"
+        #dateCreation="ngModel"
         class="form-control"
         required
       />
-      <div *ngIf="f.submitted && f.controls['dateCreation']?.hasError('required')" class="text-danger">
+      <div *ngIf="(f.submitted || dateCreation.touched) && dateCreation.errors?.['required']" class="text-danger">
         La date est obligatoire !
       </div>
     </div>
@@ -78,11 +82,12 @@
         id="idCoul"
         name="idCoul"
         [(ngModel)]="newidCoul"
+        #idCoul="ngModel"
         required
       >
-        <option *ngFor="let cat of couleurs" [value]="cat.idCoul">{{ cat.nomCoul }}</option>
+        <option *ngFor="let coul of couleurs" [ngValue]="coul.idCoul">{{ coul.nomCoul }}</option>
       </select>
-      <div *ngIf="f.submitted && f.controls['idCoul']?.hasError('required')" class="text-danger">
+      <div *ngIf="(f.submitted || idCoul.touched) && idCoul.errors?.['required']" class="text-danger">
         La couleur est obligatoire !
       </div>
     </div>
@@ -93,14 +98,15 @@
         type="email"
         name="email"
         [(ngModel)]="newaccessoire.email"
+        #email="ngModel"
         class="form-control"
         required
         email
       />
-      <div *ngIf="f.submitted && f.controls['email']?.hasError('required')" class="text-danger">
+      <div *ngIf="(f.submitted || email.touched) && email.errors?.['required']" class="text-danger">
         L’email est obligatoire !
       </div>
-      <div *ngIf="f.submitted && f.controls['email']?.hasError('email')" class="text-danger">
+      <div *ngIf="(f.submitted || email.touched) && email.errors?.['email']" class="text-danger">
         L’email n’est pas valide !
       </div>
     </div>

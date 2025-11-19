@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
-    <label>couleurs </label> 
+    <label>Couleurs</label> 
     <select
       class="form-control form-control-lg" 
       id="Idcouleur" 
@@ -8,50 +8,65 @@
       [(ngModel)]="Idcouleur"
       (change)="onChange()"
     >
-      <option *ngFor="let col of couleurs" [value]="col.idCoul">{{ col.nomCoul }}</option>
+      <option *ngFor="let couleur of couleurs" value="{{ couleur.idCoul }}">{{ couleur.nomCoul }}</option>
     </select>
   </div>
            
   <div class="card shadow mb-4">
     <div class="card-body">
-      <table class="table table-striped" *ngIf="accessoires.length > 0; else aucunAccessoire">
-        <thead>
-          <tr>
-            <th>index</th>
-            <th>idaccessoire</th>
-            <th>nomaccessoire</th>
-            <th>prixaccessoire</th>
-            <th>dateCreation</th>
-            <th>couleur</th>
-            <th>email</th>
-            <th>actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let accessoire of accessoires; let index = index; let first = first; let last = last">
-            <td>{{ index + 1 }}</td>
-            <td>{{ accessoire.idaccessoire }}</td>
-            <td>{{ accessoire.nomaccessoire }}</td>
-            <td>{{ accessoire.prixaccessoire }}</td>
-            <td>{{ accessoire.dateCreation | date :'dd/MM/yyyy' }}</td>
-            <td>{{ accessoire.couleur.nomCoul }}</td>
-            <td>{{ accessoire.email }}</td>
-            <td>
-              <a class="btn btn-danger" (click)="supprimeraccessoire(accessoire)">Supprimer</a>
-              <a class="btn btn-success" [routerLink]="['/updateaccessoire', accessoire.idaccessoire]">Modifier</a>
-            </td>
-          </tr>
-        </tbody>
+      <table class="table table-striped">
+        <!-- Vérification si des accessoires existent -->
+        @if (accessoires.length != 0) {
+          <thead>
+            <tr>
+              <th>index</th>
+              <th>idaccessoire</th>
+              <th>nomaccessoire</th>
+              <th>prixaccessoire</th>
+              <th>dateCreation</th>
+              <th>couleur</th>
+              <th>email</th>
+              <th>actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Boucle sur les accessoires -->
+            @for (accessoire of accessoires; track accessoire.idaccessoire; let index = $index; let nbr = $count; let last = $last) {
+              <tr>
+                <td>{{ index + 1 }}</td>
+                <td>{{ accessoire.idaccessoire }}</td>
+                <td>{{ accessoire.nomaccessoire }}</td>
+                <td>{{ accessoire.prixaccessoire }}</td>
+                <td>{{ accessoire.dateCreation | date : 'dd/MM/yyyy' }}</td>
+                <td>{{ accessoire.couleur.nomCoul }}</td>
+                <td>{{ accessoire.email }}</td>
+                <td>
+                  <a class="btn btn-danger" (click)="supprimeraccessoire(accessoire)">Supprimer</a>
+                  <a class="btn btn-success" [routerLink]="['/update-accessoire', accessoire.idaccessoire]">Modifier</a>
+                </td>
+              </tr>
+              
+              <!-- Affichage du nombre à la dernière ligne -->
+              @if (last) {
+                <tr>
+                  <td colspan="8">
+                    <h1 class="result-count">Nombre : {{ nbr }}</h1>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        } @else {
+          <!-- Message si aucun accessoire -->
+          <tbody>
+            <tr>
+              <td colspan="8">
+                <h1>Aucun accessoire trouvé</h1>
+              </td>
+            </tr>
+          </tbody>
+        }
       </table>
-
-      <ng-template #aucunAccessoire>
-        <h1>Aucun accessoire trouvé !</h1>
-      </ng-template>
-
-      <!-- Optionnel : nombre d'accessoires -->
-      <div *ngIf="accessoires.length > 0">
-        <h1>Nombre : {{ accessoires.length }}</h1>
-      </div>
     </div>
   </div>
 </div>

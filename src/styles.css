@@ -1,1 +1,243 @@
-/* You can add global styles to this file, and also import other style files */
+/* Styles généraux */
+body {
+  background-color: #faf3f8 !important; /* Rose pastel très clair */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  color: #5a4a6d !important; /* Violet doux */
+}
+
+/* En-tête */
+h1, h2 {
+  color: #d4a5c4 !important; /* Rose poudré */
+  border-bottom: 2px solid #e8d3e2 !important;
+  padding-bottom: 10px !important;
+}
+
+/* Tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(212, 165, 196, 0.1);
+}
+
+th {
+  background-color: #e8d3e2; /* Rose très pâle */
+  color: #8a6a8b;
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f5e9f2;
+}
+
+tr:hover {
+  background-color: #fcf6fb; /* Rose ultra clair au survol */
+}
+
+/* Boutons */
+.btn-success {
+  background-color: #b8e0d2 !important; /* Vert menthe pastel */
+  border-color: #b8e0d2!important;
+  color: #5a7a6d !important;
+}
+
+.btn-success:hover {
+  background-color: #a6d4c5;
+  border-color: #a6d4c5;
+}
+
+.btn-danger {
+  background-color: #f4b6c2; /* Rose pâle */
+  border-color: #f4b6c2;
+  color: #8a5a6b;
+}
+
+.btn-danger:hover {
+  background-color: #f0a5b4;
+  border-color: #f0a5b4;
+}
+
+.btn-warning {
+  background-color: #ffeaa7; /* Jaune pâle */
+  border-color: #ffeaa7;
+  color: #8a7a5a;
+}
+
+.btn-warning:hover {
+  background-color: #fde28f;
+  border-color: #fde28f;
+}
+
+/* Formulaire */
+.form-control {
+  border: 2px solid #e8d3e2;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fefcff;
+}
+
+.form-control:focus {
+  border-color: #d4a5c4;
+  box-shadow: 0 0 0 0.2rem rgba(212, 165, 196, 0.25);
+}
+
+label {
+  color: #8a6a8b;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+/* Cartes et conteneurs */
+.container {
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 20px;
+  box-shadow: 0 5px 20px rgba(212, 165, 196, 0.1);
+}
+
+/* Badges et statistiques */
+.badge {
+  background-color: #d4a5c4;
+  color: white;
+}
+
+/* Navigation */
+.navbar {
+  background-color: #e8d3e2 !important;
+}
+
+.navbar-brand, .nav-link {
+  color: #8a6a8b !important;
+}
+
+/* Messages d'alerte */
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+
+.alert-success {
+  background-color: #b8e0d2;
+  color: #5a7a6d;
+}
+
+.alert-danger {
+  background-color: #f4b6c2;
+  color: #8a5a6b;
+}
+
+/* Pied de page */
+.footer {
+  background-color: #e8d3e2;
+  color: #8a6a8b;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  table {
+    font-size: 14px;
+  }
+}
+
+/* Animation douce */
+.btn, .form-control {
+  transition: all 0.3s ease;
+}
+
+/* Couleurs spécifiques pour les états */
+.text-danger {
+  color: #f4b6c2 !important; /* Rose pastel pour les erreurs */
+}
+
+.text-success {
+  color: #b8e0d2 !important; /* Vert pastel pour le succès */
+}
+
+/* Style pour le compteur */
+.nombre-count {
+  background-color: #e8d3e2;
+  color: #8a6a8b;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+/* Thème pastel pour accessoires féminins */
+:root {
+  --rose-pale: #faf3f8;
+  --rose-poudre: #d4a5c4;
+  --rose-tres-pale: #e8d3e2;
+  --violet-doux: #5a4a6d;
+  --violet-moyen: #8a6a8b;
+  --vert-menthe: #b8e0d2;
+  --vert-fonce: #5a7a6d;
+  --rose-erreur: #f4b6c2;
+  --jaune-pale: #ffeaa7;
+}
+
+.pastel-theme {
+  background-color: var(--rose-pale);
+  min-height: 100vh;
+}
+
+.pastel-header {
+  background: linear-gradient(135deg, var(--rose-tres-pale), var(--rose-poudre));
+  color: var(--violet-doux);
+  padding: 20px 0;
+  border-radius: 0 0 20px 20px;
+}
+
+.pastel-card {
+  background: white;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 5px 20px rgba(212, 165, 196, 0.1);
+  margin-bottom: 20px;
+}
+
+.pastel-btn-primary {
+  background-color: var(--rose-poudre);
+  border-color: var(--rose-poudre);
+  color: white;
+}
+
+.pastel-btn-primary:hover {
+  background-color: #c8b395;
+  border-color: #c895b4;
+}
+.btn-danger {
+  background-color: #f8b4b4 !important; /* Corail pastel */
+  border-color: #f8b4b4 !important;
+  color: #8a5a5a !important;
+}
+
+.btn-danger:hover {
+  background-color: #f6a3a3 !important;
+  border-color: #f6a3a3 !important;
+}
+.navbar {
+  background: linear-gradient(135deg, #d4a5c4, #8a6a8b) !important;
+  box-shadow: 0 4px 15px rgba(212, 165, 196, 0.3);
+}
+
+.navbar-brand, .nav-link {
+  color: white !important;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #f8f0f6 !important;
+  text-decoration: underline;
+}

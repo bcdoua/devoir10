@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Accessoire } from '../model/accessoire.model';
 import { AccessoireService } from '../service/accessoire';
 import { RouterLink } from '@angular/router';
+import { Auth } from '../service/auth';
 
 @Component({
   selector: 'app-Accessoires',
@@ -11,21 +12,10 @@ import { RouterLink } from '@angular/router';
 })
 export class AccessoiresComponent implements OnInit { 
   Accessoires : Accessoire []=[]; 
-
-
-  constructor(private AccessoireService: AccessoireService )
+  constructor(private AccessoireService: AccessoireService , public authService:Auth)
    { this.Accessoires = AccessoireService.listeaccessoires(); }
-
-  supprimerAccessoire(acc: Accessoire) { 
-    //console.log(p);
-    let conf = confirm("Etes-vous sûr ?");
-     if (conf)
-   this.AccessoireService.supprimeraccessoire(acc); }
-
-
-
-  ngOnInit(): void {
-
+  ngOnInit(): void{
+  
   }
   supprimeraccessoire(accessoire : Accessoire) : void{
   this.AccessoireService.supprimeraccessoire(accessoire);
