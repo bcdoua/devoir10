@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+        <app-update-couleur
+          [couleur]="updatedCoul"
+          (couleurUpdated)="couleurUpdated($event)"
+          [ajout]="ajout"
+        >
+        </app-update-couleur>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nom Couleur</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(Coul of couleurs; track Coul.idCoul) {
+          <tr>
+            <td>{{ Coul.idCoul }}</td>
+            <td>{{ Coul.nomCoul }}</td>
+            <td><a class="btn btn-success" (click)="updateCoul(Coul)">Editer</a></td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

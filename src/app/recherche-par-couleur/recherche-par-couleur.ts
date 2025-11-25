@@ -5,6 +5,7 @@ import { Accessoire } from '../model/accessoire.model';
 import { AccessoireService } from '../service/accessoire'; 
 import { RouterModule } from '@angular/router';
 import { Couleur } from '../model/couleur.model';
+import { Auth } from '../service/auth';  
 
 @Component({
   selector: 'app-recherche-par-couleur',
@@ -17,7 +18,10 @@ export class RechercheParcouleurComponent implements OnInit {
   Idcouleur!: number;
   couleurs: Couleur[] = [];
 
-  constructor(private accessoireService: AccessoireService) { }
+  constructor(
+    private accessoireService: AccessoireService,
+    public authService: Auth  // Injection du service Auth
+  ) { }
 
   ngOnInit(): void {
     this.couleurs = this.accessoireService.listecouleurs();
@@ -34,6 +38,6 @@ export class RechercheParcouleurComponent implements OnInit {
   onChange() {
     // Convertir Idcouleur en nombre pour correspondre au type des accessoires
     const id = Number(this.Idcouleur);
-    this.accessoires = this.accessoireService.rechercherParcouleur(id);
+   this.accessoires = this.accessoireService.rechercherParcouleur(id);
   }
 }

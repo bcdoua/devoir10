@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Accessoire } from '../model/accessoire.model';
 import { AccessoireService } from '../service/accessoire'; 
 import { RouterLink } from "@angular/router";
+import { Auth } from '../service/auth'; 
 
 @Component({
   selector: 'app-recherche-par-nom',
@@ -19,12 +20,16 @@ export class RechercheParNom implements OnInit {
   searchTerm!: string;
   Idcouleur!: number;
 
-  constructor(private AccessoireService: AccessoireService) {} 
+  constructor(
+    private AccessoireService: AccessoireService,
+    public authService: Auth  // Injection du service Auth
+  ) {} 
 
   ngOnInit(): void {
     this.allaccessoires = this.AccessoireService.listeaccessoires();
     this.accessoires = this.allaccessoires;
   }
+  
   supprimeraccessoire(acc: Accessoire) {
     //supprimer l'accessoire acc du tableau accessoires
     const index = this.accessoires.indexOf(acc, 0);
@@ -38,6 +43,7 @@ export class RechercheParNom implements OnInit {
              }
        }); */
   }
+  
   onKeyUp(filterText: string) {
     this.accessoires = this.allaccessoires.filter(item =>
       item.nomaccessoire.toLowerCase().includes(filterText)

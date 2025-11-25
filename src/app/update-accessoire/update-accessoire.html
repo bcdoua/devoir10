@@ -91,13 +91,13 @@
         #idCoul="ngModel"
         required
       >
+        <option value="">-- Choisir une couleur --</option>
         <option *ngFor="let coul of couleurs" [ngValue]="coul.idCoul">{{ coul.nomCoul }}</option>
       </select>
       <div *ngIf="(f.submitted || idCoul.touched) && idCoul.errors?.['required']" class="text-danger">
         La couleur est obligatoire !
       </div>
     </div>
-
     <!-- Email -->
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>

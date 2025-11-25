@@ -8,7 +8,6 @@ import { Couleur } from '../model/couleur.model';
 
 @Component({
   selector: 'app-update-accessoire',
-  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './update-accessoire.html',
   styles: ``

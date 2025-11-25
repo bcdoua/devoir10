@@ -1,0 +1,31 @@
+<form>
+  <div [hidden]="ajout">
+    <label>ID Couleur</label>
+    <input
+      type="text"
+      [(ngModel)]="couleur.idCoul"
+      name="idCouleur"
+      class="form-control w-25"
+    />
+  </div>
+  <div>
+    <label>Nom Couleur</label>
+    <input
+      type="text"
+      [(ngModel)]="couleur.nomCoul"
+      name="nomCouleur"
+      class="form-control"
+      placeholder="Entrez un nom de Couleur..."
+    />
+  </div>
+  <div class="mt-2">
+    <button
+      type="submit"
+      [disabled]="!couleur.nomCoul"
+      class="btn btn-success"
+      (click)="saveCouleur()"
+    >
+      {{ ajout ? 'Ajouter' : 'Modifier' }}
+    </button>
+  </div>
+</form>

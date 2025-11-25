@@ -12,14 +12,9 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './add-accessoire.html'
 })
-export class addAccessoireComponent implements OnInit {
-
-  newaccessoire = new Accessoire();
-  message!: string;
-  couleurs!: Couleur[];
-  newidCoul!: number;
-  newcouleur!: Couleur;
+export class AddAccessoireComponent implements OnInit {
   myForm!: FormGroup;
+  Couleurs: Couleur[] = [];
 
   constructor(
     private accessoireService: AccessoireService,
@@ -28,44 +23,45 @@ export class addAccessoireComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Charger la liste des couleurs
-    this.couleurs = this.accessoireService.listecouleurs();
+    // Charger les collections existantes depuis le service
+    this.Couleurs = this.accessoireService.listecouleurs();
     // Initialiser le formulaire réactif
     this.myForm = this.formBuilder.group({
       idaccessoire: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       nomaccessoire: ['', [Validators.required, Validators.minLength(3)]],
-      prixaccessoire: [0, [Validators.required, Validators.min(0)]],
+      prixaccessoire: [0, [Validators.required, Validators.min(1)]],
       dateCreation: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       idCoul: ['', Validators.required],
     });
   }
 
-  // méthode d’ajout
   addaccessoire(): void {
-    // Vérifier si l'ID existe déjà
-    const existingIds = this.accessoireService.listeaccessoires().map(a => a.idaccessoire);
-    if (existingIds.includes(Number(this.newaccessoire.idaccessoire))) {
-      alert("Cet ID existe déjà ! Veuillez en choisir un autre.");
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched();
       return;
     }
 
-    // Créer l'accessoire à ajouter
+    const formValues = this.myForm.value;
+
+    // Vérifier si l'ID existe déjà
+    const existingIds = this.accessoireService.listeaccessoires().map(a => a.idaccessoire);
+    if (existingIds.includes(Number(formValues.idaccessoire))) {
+      alert("Cet ID existe déjà ! Veuillez en choisir un autre.");
+      return;
+    }
+     // Créer l'accessoire à ajouter
     const accessoireToAdd: Accessoire = {
-      idaccessoire: this.newaccessoire.idaccessoire,
-      nomaccessoire: this.newaccessoire.nomaccessoire,
-      prixaccessoire: this.newaccessoire.prixaccessoire,
-      dateCreation: this.newaccessoire.dateCreation,
-      email: this.newaccessoire.email,
-      couleur: this.accessoireService.consultercouleur(this.newidCoul),
+      idaccessoire: Number(formValues.idaccessoire),
+      nomaccessoire: formValues.nomaccessoire,
+      prixaccessoire: Number(formValues.prixaccessoire),
+      dateCreation: new Date(formValues.dateCreation),
+      email: formValues.email,
+      couleur: this.accessoireService.consultercouleur(Number(formValues.idCoul))
     };
 
-    // Ajouter et rediriger
+     // Ajouter l'accessoire via le service
     this.accessoireService.ajouteraccessoire(accessoireToAdd);
-
-    // Réinitialiser le formulaire
-    this.newaccessoire = new Accessoire();
-    this.newidCoul = 0;
 
     this.router.navigate(['accessoire']);
   }

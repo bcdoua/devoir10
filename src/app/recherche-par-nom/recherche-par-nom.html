@@ -24,7 +24,9 @@
             <th>dateCreation</th>
             <th>couleur</th>
             <th>email</th>
+            @if(authService.isAdmin()) {
             <th>actions</th>
+            }
           </tr>
         </thead>
         <tbody>
@@ -36,10 +38,12 @@
             <td>{{ accessoire.dateCreation | date:'dd/MM/yyyy' }}</td>
             <td>{{ accessoire.couleur.nomCoul }}</td>
             <td>{{ accessoire.email }}</td>
+            @if(authService.isAdmin()) {
             <td>
               <a class="btn btn-danger" (click)="supprimeraccessoire(accessoire)">Supprimer</a>
               <a class="btn btn-success" [routerLink]="['/update-accessoire', accessoire.idaccessoire]">Modifier</a>
             </td>
+            }
           </tr>
         </tbody>
       </table>
