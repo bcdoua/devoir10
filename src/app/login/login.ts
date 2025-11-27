@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { User } from '../model/User.model';
 import { Auth } from '../service/auth';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -13,19 +14,19 @@ import { Router } from '@angular/router';
 })
 export class Login {
   user = new User();
-  erreur=0;
-  constructor(private authService : Auth,
-    private router: Router) { }
-    
+  erreur = 0;
 
-    onLoggedin(){
-      console.log(this.user);
-       let isValidUser: Boolean = this.authService.SignIn(this.user);
-      if (isValidUser)
-      this.router.navigate(['/']);
-      else
+  constructor(private authService: Auth, private router: Router) { }
+
+  onLoggedin() {
+    console.log(this.user);
+    let isValidUser: Boolean = this.authService.SignIn(this.user);
+    
+    if (isValidUser) {
+      this.router.navigate(['/']); 
+    } else {
+      this.erreur = 1;
       alert('Login ou mot de passe incorrecte!');
-      this.erreur=1;
-      }
-      
+    }
+  }
 }

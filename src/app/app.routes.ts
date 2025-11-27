@@ -3,21 +3,20 @@ import { Routes } from '@angular/router';
 import { AddAccessoireComponent } from './add-accessoire/add-accessoire';
 import { AccessoiresComponent } from './accessoires/accessoire';
 import { Updateaccessoire } from './update-accessoire/update-accessoire';
-import { RechercheParcouleurComponent } from './recherche-par-couleur/recherche-par-couleur';
-import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
 import { Login } from './login/login';
 import { Forbidden } from './forbidden/forbidden';
-import { accesosireGuard } from './service/accessoire-guard';
+import { accessoireGuard } from './service/accessoire-guard';
 import { ListeCouleursComponent } from './liste-couleur/liste-couleur';
-
+import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom';
+import { RechercheParCouleurComponent } from './recherche-par-couleur/recherche-par-couleur';
 export const routes: Routes = [
-    {path: "accessoire", component: AccessoiresComponent },
-    {path: "add-accessoire", component: AddAccessoireComponent,canActivate:[accesosireGuard] },
-    {path: "update-accessoire/:id", component: Updateaccessoire },
-    {path: "rechercheParcouleur", component : RechercheParcouleurComponent},
-    {path: "rechercheParNom", component : RechercheParNom},
-    {path: "", redirectTo: "accessoire", pathMatch: "full" },
-    {path:  'login', component: Login},
-    {path:'app-forbidden',component:Forbidden},
-    {path:'listeCouleurs',component:ListeCouleursComponent},
+    {path: "accessoires", component: AccessoiresComponent},
+    {path: "add-accessoire", component: AddAccessoireComponent, canActivate:[accessoireGuard]},
+    {path: "update-accessoire/:id", component: Updateaccessoire},
+    {path: "rechercheParCouleur", component: RechercheParCouleurComponent},
+    {path: "rechercheParNom", component: RechercheParNomComponent},
+    {path: "app-forbidden", component: Forbidden},
+    {path: "listeCouleurs", component: ListeCouleursComponent},
+    {path: "app-login", component: Login},
+    {path: "", redirectTo: "accessoires", pathMatch: "full"}
 ];

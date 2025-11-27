@@ -5,47 +5,81 @@ import { CommonModule } from '@angular/common';
 import { UpdateCouleurComponent } from '../update-couleur/update-couleur';
 
 @Component({
- selector: 'app-liste-couleur',
+  selector: 'app-liste-couleur',
   standalone: true,
-  imports: [CommonModule,UpdateCouleurComponent],
+  imports: [CommonModule, UpdateCouleurComponent],
   templateUrl: './liste-couleur.html',
   styles: ``
 })
 export class ListeCouleursComponent implements OnInit {
-  couleurs! : Couleur[];
-  updatedCoul:Couleur = {"idCoul":0,"nomCoul":""};
+  couleurs: Couleur[] = []; 
+  updatedCoul: Couleur = {"idCoul": 0, "nomCoul": ""};
+  ajout: boolean = true;
+  errorMessage: string = '';
 
-  ajout:boolean=true;
-
-  constructor(private accessoireService : AccessoireService) { }
+  constructor(private accessoireService: AccessoireService) { }
 
   ngOnInit(): void {
-     this.chargerCouleurs();
+    this.chargerCouleurs();
   }
 
   couleurUpdated(coul: Couleur) {
     if (this.ajout) {
-      this.accessoireService.ajoutercouleur(coul); 
+      return;
     } else {
-      // Pour modification - trouver et mettre à jour
-      const index = this.accessoireService.couleurs.findIndex(c => c.idCoul === coul.idCoul);
-     if (index > -1) {
-       this.accessoireService.couleurs[index] = coul;
+      const index = this.couleurs.findIndex(c => c.idCoul === coul.idCoul);
+      if (index !== -1) {
+        this.couleurs[index] = { ...coul };
+      }
     }
+  }
+
+  saveCouleur(coul: Couleur) {
+    if (this.ajout) {
+      // AJOUT
+      this.accessoireService.ajouterCouleur(coul).subscribe({
+        next: () => {
+          this.chargerCouleurs();
+          this.reinitialiserFormulaire();
+        },
+        error: (err) => {
+          this.errorMessage = 'Erreur lors de l\'ajout: ' + err.message;
+        }
+      });
+    } else {
+      // MODIFICATION
+      this.accessoireService.updateCouleur(coul).subscribe({
+        next: () => {
+          this.chargerCouleurs();
+          this.reinitialiserFormulaire();
+        },
+        error: (err) => {
+          this.errorMessage = 'Erreur lors de la modification: ' + err.message;
+          this.chargerCouleurs();
+        }
+      });
     }
-    
-    // Réinitialiser le formulaire
-    this.updatedCoul = { idCoul: 0, nomCoul: '' }; 
-    this.ajout = true;
   }
 
   chargerCouleurs() {
-    this.couleurs = this.accessoireService.listecouleurs();
-    console.log('Couleurs chargées:', this.couleurs);
+    this.accessoireService.listeCouleur().subscribe({
+      next: (couls) => {
+        this.couleurs = couls._embedded?.couleurs || []; 
+      },
+      error: (err) => {
+        this.couleurs = []; 
+      }
+    });
   }
 
-  updateCoul(coul:Couleur) {
-    this.updatedCoul = coul;
+  updateCoul(coul: Couleur) {
+    this.updatedCoul = {...coul};
     this.ajout = false;  
+  }
+
+  reinitialiserFormulaire() {
+    this.updatedCoul = { idCoul: 0, nomCoul: '' };
+    this.ajout = true;
+    this.errorMessage = '';
   }
 }

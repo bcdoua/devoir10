@@ -2,7 +2,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { Auth } from './auth';
 import { inject } from '@angular/core';
 
-export const accesosireGuard: CanActivateFn = (route, state) => {
+export const accessoireGuard: CanActivateFn = (route, state) => {
   const authService = inject(Auth);
   const router = inject(Router);
   if (authService.isAdmin())
@@ -11,5 +11,4 @@ export const accesosireGuard: CanActivateFn = (route, state) => {
     router.navigate(['app-forbidden']);
     return false;
   }
-
 };

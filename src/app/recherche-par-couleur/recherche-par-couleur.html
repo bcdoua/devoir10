@@ -1,76 +1,195 @@
-<div class="container">
-  <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
-    <label>Couleurs</label> 
-    <select
-      class="form-control form-control-lg" 
-      id="Idcouleur" 
-      name="Idcouleur" 
-      [(ngModel)]="Idcouleur"
-      (change)="onChange()"
-    >
+<div class="container simple-theme">
+  <!-- Sélecteur de Couleurs -->
+  <div class="select-section">
+    <label>Couleurs</label>
+    <select class="form-select" [(ngModel)]="Idcouleur" (change)="onChange()">
       <option *ngFor="let couleur of couleurs" value="{{ couleur.idCoul }}">{{ couleur.nomCoul }}</option>
     </select>
   </div>
-           
-  <div class="card shadow mb-4">
-    <div class="card-body">
-      <table class="table table-striped">
-        <!-- Vérification si des accessoires existent -->
-        @if (accessoires.length != 0) {
-          <thead>
-            <tr>
-              <th>index</th>
-              <th>idaccessoire</th>
-              <th>nomaccessoire</th>
-              <th>prixaccessoire</th>
-              <th>dateCreation</th>
-              <th>couleur</th>
-              <th>email</th>
-              @if(authService.isAdmin()) {
-              <th>actions</th>
-              }
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Boucle sur les accessoires -->
-            @for (accessoire of accessoires; track accessoire.idaccessoire; let index = $index; let nbr = $count; let last = $last) {
-              <tr>
-                <td>{{ index + 1 }}</td>
-                <td>{{ accessoire.idaccessoire }}</td>
-                <td>{{ accessoire.nomaccessoire }}</td>
-                <td>{{ accessoire.prixaccessoire }}</td>
-                <td>{{ accessoire.dateCreation | date : 'dd/MM/yyyy' }}</td>
-                <td>{{ accessoire.couleur.nomCoul }}</td>
-                <td>{{ accessoire.email }}</td>
-                @if(authService.isAdmin()) {
-                <td>
-                  <a class="btn btn-danger" (click)="supprimeraccessoire(accessoire)">Supprimer</a>
-                  <a class="btn btn-success" [routerLink]="['/update-accessoire', accessoire.idaccessoire]">Modifier</a>
-                </td>
-                }
-              </tr>
-              
-              <!-- Affichage du nombre à la dernière ligne -->
-              @if (last) {
-                <tr>
-                  <td colspan="8">
-                    <h1 class="result-count">Nombre : {{ nbr }}</h1>
-                  </td>
-                </tr>
-              }
-            }
-          </tbody>
-        } @else {
-          <!-- Message si aucun accessoire -->
-          <tbody>
-            <tr>
-              <td colspan="8">
-                <h1>Aucun accessoire trouvé</h1>
-              </td>
-            </tr>
-          </tbody>
-        }
-      </table>
-    </div>
+
+  <!-- Tableau des Accessoires -->
+  <div class="table-section">
+    <table class="simple-table">
+      @if (accessoires.length!=0) {
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Date</th>
+          <th>Couleur</th>
+          <th>Email</th>
+          @if(authService.isAdmin()) {
+          <th>Actions</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (accessoire of accessoires; track accessoire.idaccessoire; let index=$index;let nbr=$count;let
+        last=$last) {
+        <tr>
+          <td>{{ index + 1 }}</td>
+          <td>{{ accessoire.idaccessoire }}</td>
+          <td>{{ accessoire.nomaccessoire }}</td>
+          <td>{{ accessoire.prixaccessoire }} €</td>
+          <td>{{ accessoire.dateCreation | date : 'dd/MM/yyyy' }}</td>
+          <td>{{ accessoire.couleur.nomCoul }}</td>
+          <td>{{ accessoire.email }}</td>
+          @if(authService.isAdmin()) {
+          <td class="actions">
+            <button class="btn-delete" (click)="supprimeraccessoire(accessoire)">Supprimer</button>
+            <a class="btn-edit" [routerLink]="['/update-accessoire', accessoire.idaccessoire]"
+              >Modifier</a
+            >
+          </td>
+          }
+        </tr>
+        @if (last) {
+        <tr class="total-row">
+          <td colspan="@if(authService.isAdmin()) {8} @else {7}">Total : {{ nbr }} accessoires</td>
+        </tr>
+        } }
+      </tbody>
+      } @else {
+      <tbody>
+        <tr>
+          <td colspan="@if(authService.isAdmin()) {8} @else {7}" class="no-data">Aucun accessoire trouvé</td>
+        </tr>
+      </tbody>
+      }
+    </table>
   </div>
 </div>
+
+<style>
+  .simple-theme {
+    padding: 20px;
+    background: #fafafa;
+    min-height: 100vh;
+  }
+
+  .select-section {
+    margin-bottom: 20px;
+  }
+
+  .select-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #d81b60;
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #f8bbd9;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+  }
+
+  .form-select:focus {
+    outline: none;
+    border-color: #ec407a;
+  }
+
+  .simple-table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .simple-table thead {
+    background: #fce4ec;
+  }
+
+  .simple-table th {
+    padding: 12px 8px;
+    text-align: left;
+    font-weight: 600;
+    color: #880e4f;
+    border-bottom: 2px solid #f8bbd9;
+  }
+
+  .simple-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .simple-table tr:hover {
+    background: #fdf2f8;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-delete {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .btn-edit {
+    background: #4caf50;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 12px;
+  }
+
+  .btn-delete:hover {
+    background: #d32f2f;
+  }
+
+  .btn-edit:hover {
+    background: #388e3c;
+  }
+
+  .total-row {
+    background: #fce4ec;
+    font-weight: 600;
+    color: #880e4f;
+  }
+
+  .total-row td {
+    text-align: center;
+    padding: 12px;
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 40px !important;
+    color: #ad1457;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .simple-theme {
+      padding: 10px;
+    }
+
+    .actions {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .simple-table {
+      font-size: 14px;
+    }
+
+    .simple-table th,
+    .simple-table td {
+      padding: 8px 4px;
+    }
+  }
+</style>

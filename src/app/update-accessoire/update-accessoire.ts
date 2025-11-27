@@ -13,9 +13,9 @@ import { Couleur } from '../model/couleur.model';
   styles: ``
 })
 export class Updateaccessoire implements OnInit {
-  currentaccessoire!: Accessoire;
-  couleurs!: Couleur[];
-  updatedCoulId!: number;
+  currentaccessoire: any = {};
+  couleurs: any[] = [];
+  updatedCoulId: number = 0;
 
   constructor(
     private accessoireService: AccessoireService,
@@ -24,16 +24,26 @@ export class Updateaccessoire implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.couleurs = this.accessoireService.listecouleurs();
-    this.currentaccessoire = this.accessoireService.consulteraccessoire(
-      this.activatedRoute.snapshot.params['id']
-    );
-    this.updatedCoulId = this.currentaccessoire.couleur.idCoul;
+    const id = this.activatedRoute.snapshot.params['id'];
+    
+    this.accessoireService.listeCouleur().subscribe(couls => {
+      this.couleurs = couls._embedded?.couleurs || [];
+    });
+
+    this.accessoireService.consulteraccessoire(id).subscribe(acc => {
+      this.currentaccessoire = acc;
+      this.updatedCoulId = acc.couleur?.idCoul || 0;
+    });
   }
 
-  updateaccessoire(): void {
-    this.currentaccessoire.couleur = this.accessoireService.consultercouleur(this.updatedCoulId);
-    this.accessoireService.updateaccessoire(this.currentaccessoire);
-    this.router.navigate(['accessoire']);
+  updateaccessoire() {
+    const selectedCouleur = this.couleurs.find(coul => coul.idCoul == this.updatedCoulId);
+    if (selectedCouleur) {
+      this.currentaccessoire.couleur = selectedCouleur;
+    }
+
+    this.accessoireService.updateaccessoire(this.currentaccessoire).subscribe(() => {
+      this.router.navigate(['accessoires']);
+    });
   }
 }

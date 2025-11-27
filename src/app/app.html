@@ -1,55 +1,75 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid"> 
-    <a class="navbar-brand" routerLink="/accessoire">Organisation des accessoires</a> 
-    <button 
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Gestion des accessoires</a>
+    <button
       class="navbar-toggler"
-      type="button" 
-      data-bs-toggle="collapse" 
+      type="button"
+      data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" 
-      aria-expanded="false" 
-      aria-label="Toggle navigation"> 
-      <span class="navbar-toggler-icon"></span> 
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
     </button>
-    
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"> 
-          <a class="nav-link" routerLink="/accessoire" routerLinkActive="active">Home</a> 
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/accessoires">Home</a>
         </li>
-        
-        <li class="nav-item dropdown"> 
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false"> 
-            Accessoires 
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Accessoires
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             @if(authService.isAdmin()) {
-              <li><a class="dropdown-item" routerLink="/add-accessoire">Ajouter</a></li>
+
+            <li><a class="dropdown-item" routerLink="/add-accessoire">Ajouter</a></li>
             }
-            <li><a class="dropdown-item" routerLink="/accessoire">Lister</a></li>
-            <li><a class="dropdown-item" routerLink="/rechercheParcouleur">Recherche Par couleur</a></li>
-            <li><a class="dropdown-item" routerLink="/rechercheParNom">Recherche Par Nom</a></li>
-            <li><a class="dropdown-item" routerLink="/listeCouleurs">Gestion des couleurs</a></li>
+            <li><a class="dropdown-item" href="">Lister</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/rechercheParCouleur"
+                >Recherche Par Couleur</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/rechercheParNom">Recherche Par Nom</a>
+            </li>
+            @if(authService.isAdmin()) {
+            <li>
+              <a class="dropdown-item" routerLink="/listeCouleurs">Gestion des Couleurs</a>
+            </li>
+            }
           </ul>
         </li>
       </ul>
-      
+
       <ul class="navbar-nav ms-auto m-2">
-        <li class="nav-item dropdown"> 
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false"> 
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             [{{ authService.loggedUser }}]
           </a>
+
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             @if(!authService.isloggedIn){
             <li><a class="dropdown-item" routerLink="/login">Login</a></li>
             } @else {
-            <li>
-              <a class="dropdown-item" style="cursor: pointer;" (click)="authService.logout()">
-                Logout
-              </a>
-            </li>
+            <li><a class="dropdown-item" (click)="onLogout()">Logout</a></li>
             }
             <li><a class="dropdown-item" href="#">Profile</a></li>
           </ul>
@@ -57,6 +77,6 @@
       </ul>
     </div>
   </div>
-</nav> 
+</nav>
 
-<router-outlet></router-outlet>
+<router-outlet />

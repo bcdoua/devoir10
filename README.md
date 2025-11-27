@@ -64,3 +64,4 @@ For more information on using the Angular CLI, including detailed command refere
 "# devoir6" 
 "# devoir9" 
 "# devoir10" 
+"# mini-projet-FRONTEND" 

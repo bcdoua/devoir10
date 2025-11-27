@@ -10,11 +10,10 @@
       />
     </div>
   </form>
-
   <div class="card shadow mb-4">
     <div class="card-body">
-      <!-- Vérifie si accessoires existe -->
-      <table class="table table-striped" *ngIf="accessoires.length > 0; else aucunAccessoire">
+      <table class="table table-striped">
+        @if (accessoires.length != 0) {
         <thead>
           <tr>
             <th>index</th>
@@ -29,34 +28,33 @@
             }
           </tr>
         </thead>
+        } @for (accessoire of accessoires; track accessoire.idaccessoire; let index=$index;let
+        nbr=$count;let first=$first;let last=$last) {
         <tbody>
-          <tr *ngFor="let accessoire of accessoires; let index = index; let last = last">
+          <tr>
             <td>{{ index + 1 }}</td>
             <td>{{ accessoire.idaccessoire }}</td>
             <td>{{ accessoire.nomaccessoire }}</td>
             <td>{{ accessoire.prixaccessoire }}</td>
-            <td>{{ accessoire.dateCreation | date:'dd/MM/yyyy' }}</td>
+            <td>{{ accessoire.dateCreation | date : 'dd/MM/yyyy' }}</td>
             <td>{{ accessoire.couleur.nomCoul }}</td>
             <td>{{ accessoire.email }}</td>
             @if(authService.isAdmin()) {
             <td>
               <a class="btn btn-danger" (click)="supprimeraccessoire(accessoire)">Supprimer</a>
-              <a class="btn btn-success" [routerLink]="['/update-accessoire', accessoire.idaccessoire]">Modifier</a>
+              <a class="btn btn-success" [routerLink]="['/update-accessoire', accessoire.idaccessoire]"
+                >Modifier</a
+              >
             </td>
             }
           </tr>
         </tbody>
+        @if (last) {
+        <h1></h1>
+        } } @empty {
+        <h1>Aucun accessoire trouvé</h1>
+        }
       </table>
-
-      <!-- Message si aucun accessoire trouvé -->
-      <ng-template #aucunAccessoire>
-        <h1>Aucun accessoire trouvé !</h1>
-      </ng-template>
-
-      <!-- Optionnel : afficher le nombre d'accessoires -->
-      <div *ngIf="accessoires.length > 0">
-        <h1>Nombre : {{ accessoires.length }}</h1>
-      </div>
     </div>
   </div>
 </div>

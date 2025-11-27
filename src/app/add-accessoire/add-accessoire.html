@@ -14,22 +14,7 @@
         class="mx-auto p-4 border rounded shadow-sm bg-light"
         style="max-width: 500px"
       >
-        <div class="mb-3">
-          <label class="form-label">ID accessoire</label>
-          <input type="text" formControlName="idaccessoire" class="form-control" />
-          <div
-            *ngIf="
-              myForm.get('idaccessoire')?.touched && myForm.get('idaccessoire')?.hasError('required')
-            "
-            class="text-danger"
-          >
-            L'ID est obligatoire !
-          </div>
-          <div *ngIf="myForm.get('idaccessoire')?.hasError('pattern')" class="text-danger">
-            L'ID doit être un nombre !
-          </div>
-        </div>
-
+        <!-- Nom accessoire -->
         <div class="mb-3">
           <label class="form-label">Nom accessoire</label>
           <input type="text" formControlName="nomaccessoire" class="form-control" />
@@ -46,6 +31,7 @@
           </div>
         </div>
 
+        <!-- Prix accessoire -->
         <div class="mb-3">
           <label class="form-label">Prix accessoire</label>
           <input type="number" formControlName="prixaccessoire" class="form-control" />
@@ -63,6 +49,7 @@
           </div>
         </div>
 
+        <!-- Date de création -->
         <div class="mb-3">
           <label class="form-label">Date de création</label>
           <input type="date" formControlName="dateCreation" class="form-control" />
@@ -77,6 +64,7 @@
           </div>
         </div>
 
+        <!-- Couleur -->
         <div class="mb-3">
           <label class="form-label">Couleur</label>
           <select formControlName="idCoul" class="form-control">
@@ -90,6 +78,8 @@
             La couleur est obligatoire !
           </div>
         </div>
+
+        <!-- Email -->
         <div class="mb-3">
           <label class="form-label">Email</label>
           <input type="email" formControlName="email" class="form-control" />
@@ -104,6 +94,7 @@
           </div>
         </div>
 
+        <!-- Bouton -->
         <div class="mt-4 text-center">
           <button type="submit" class="btn btn-success" [disabled]="myForm.invalid">Ajouter</button>
         </div>
